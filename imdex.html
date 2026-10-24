@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New United Printers - Handwriting Jobs</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        poppins: ['Poppins', 'sans-serif'],
+                    },
+                    colors: {
+                        primary: '#6b21a8', // Purple 800
+                        secondary: '#3b0764', // Purple 950
+                        accent: '#c084fc', // Purple 400
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            overflow-x: hidden;
+            background-color: #0f0a1a;
+            color: #ffffff;
+        }
+
+        /* Animated Gradient Background */
+        .bg-animated-gradient {
+            background: linear-gradient(-45deg, #1e0b36, #3a0ca3, #0a041c, #240046);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Canvas Particle System Container */
+        #particle-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* Glassmorphism Utilities */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+            border-radius: 1rem;
+        }
+
+        /* Glowing Effects */
+        .glow-text {
+            text-shadow: 0 0 10px rgba(192, 132, 252, 0.8), 0 0 20px rgba(192, 132, 252, 0.5);
+        }
+
+        .glow-button {
+            transition: all 0.3s ease;
+            box-shadow: 0 0 15px rgba(192, 132, 252, 0.4);
+        }
+
+        .glow-button:hover {
+            box-shadow: 0 0 25px rgba(192, 132, 252, 0.8);
+            transform: translateY(-2px);
+        }
+
+        /* Custom Inputs */
+        .glass-input {
+            background: rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            transition: all 0.3s ease;
+        }
+        .glass-input:focus {
+            outline: none;
+            border-color: #c084fc;
+            box-shadow: 0 0 10px rgba(192, 132, 252, 0.5);
+        }
+        .glass-input option {
+            background: #240046;
+            color: white;
+        }
+
+        /* Voice Wave Animation */
+        .voice-wave {
+            display: inline-flex;
+            align-items: center;
+            height: 20px;
+            gap: 3px;
+        }
+        .voice-wave span {
+            display: block;
+            width: 4px;
+            height: 100%;
+            background-color: #c084fc;
+            border-radius: 2px;
+            animation: wave 1s ease-in-out infinite;
+        }
+        .voice-wave span:nth-child(2) { animation-delay: 0.2s; }
+        .voice-wave span:nth-child(3) { animation-delay: 0.4s; }
+        
+        @keyframes wave {
+            0%, 100% { transform: scaleY(0.3); }
+            50% { transform: scaleY(1); }
+        }
+        .hidden-wave { display: none !important; }
+
+        /* Floating Element Animation */
+        .floating {
+            animation: floating 3s ease-in-out infinite;
+        }
+        @keyframes floating {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
+        /* Content Wrapper */
+        .content-wrapper {
+            position: relative;
+            z-index: 10;
+        }
+    </style>
+</head>
+<body class="bg-animated-gradient min-h-screen text-white">
+
+    <!-- Background Particle Canvas -->
+    <canvas id="particle-canvas"></canvas>
+
+    <!-- Main Content -->
+    <div class="content-wrapper container mx-auto px-4 py-8 max-w-4xl">
+        
+        <!-- Header / Banner -->
+        <header class="text-center mb-10 floating">
+            <div class="inline-block glass-card px-6 py-3 rounded-full border-purple-500/50 shadow-[0_0_20px_rgba(168,85,247,0.4)]">
+                <h1 class="text-xl md:text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400 glow-text">
+                    ✨ 0₹ Registration Fee | No Hidden Charges ✨
+                </h1>
+            </div>
+            <h2 class="mt-6 text-3xl md:text-5xl font-extrabold tracking-tight">
+                New United Printers
+            </h2>
+            <p class="text-gray-300 mt-2 text-lg">Premium Handwriting Jobs - Work from Home</p>
+        </header>
+
+        <!-- Voice Assistant Section -->
+        <section class="mb-10 text-center">
+            <div class="glass-card p-6 md:p-8 relative overflow-hidden group">
+                <!-- Decorative background flare -->
+                <div class="absolute -top-20 -right-20 w-40 h-40 bg-purple-600 rounded-full mix-blend-screen filter blur-[50px] opacity-50"></div>
+                
+                <h3 class="text-2xl font-bold mb-4 text-purple-300">
+                    <i class="fa-solid fa-headphones-simple mr-2"></i> Listen to Job Details & Payment Process
+                </h3>
+                <p class="text-gray-300 mb-6 max-w-2xl mx-auto text-sm md:text-base">
+                    Click the button below to hear the step-by-step process of how we operate, advance payments, and job execution in Hindi.
+                </p>
+                
+                <button id="voiceBtn" onclick="toggleSpeech()" class="glow-button bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white font-bold py-3 px-8 rounded-full inline-flex items-center gap-3">
+                    <i id="voiceIcon" class="fa-solid fa-play text-xl"></i>
+                    <span id="voiceText">Play Audio Guide</span>
+                    <div id="voiceWave" class="voice-wave hidden-wave ml-2">
+                        <span></span><span></span><span></span>
+                    </div>
+                </button>
+            </div>
+        </section>
+
+        <!-- Salary Packages -->
+        <section class="mb-12">
+            <h3 class="text-2xl font-bold mb-6 text-center text-white glow-text">Available Packages</h3>
+            <div class="grid md:grid-cols-2 gap-6">
+                <!-- Package 1 -->
+                <div class="glass-card p-6 border-t-4 border-t-purple-400 transform transition duration-300 hover:-translate-y-2 hover:shadow-[0_0_25px_rgba(168,85,247,0.3)]">
+                    <div class="flex justify-between items-center mb-4">
+                        <span class="text-4xl"><i class="fa-solid fa-book-open text-purple-400"></i></span>
+                        <span class="bg-purple-900/50 text-purple-300 py-1 px-3 rounded-full text-sm border border-purple-500/30">Most Popular</span>
+                    </div>
+                    <h4 class="text-2xl font-bold mb-2">100 Pages</h4>
+                    <p class="text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-emerald-500 mb-4">₹18,500 <span class="text-sm text-gray-400 font-normal">Salary</span></p>
+                    <ul class="space-y-2 text-gray-300">
+                        <li><i class="fa-solid fa-check text-green-400 mr-2"></i> 50% Advance Payment</li>
+                        <li><i class="fa-solid fa-check text-green-400 mr-2"></i> Flexible Work Time</li>
+                        <li><i class="fa-solid fa-check text-green-400 mr-2"></i> Clear & Clean Handwriting req.</li>
+                    </ul>
+                </div>
+
+                <!-- Package 2 -->
+                <div class="glass-card p-6 border-t-4 border-t-pink-400 transform transition duration-300 hover:-translate-y-2 hover:shadow-[0_0_25px_rgba(236,72,153,0.3)] relative overflow-hidden">
+                    <div class="absolute -right-10 -bottom-10 opacity-10">
+                        <i class="fa-solid fa-crown text-9xl text-pink-500"></i>
+                    </div>
+                    <div class="flex justify-between items-center mb-4 relative z-10">
+                        <span class="text-4xl"><i class="fa-solid fa-layer-group text-pink-400"></i></span>
+                        <span class="bg-pink-900/50 text-pink-300 py-1 px-3 rounded-full text-sm border border-pink-500/30">Premium</span>
+                    </div>
+                    <h4 class="text-2xl font-bold mb-2 relative z-10">200 Pages</h4>
+                    <p class="text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-emerald-500 mb-4 relative z-10">₹40,000 <span class="text-sm text-gray-400 font-normal">Salary</span></p>
+                    <ul class="space-y-2 text-gray-300 relative z-10">
+                        <li><i class="fa-solid fa-check text-green-400 mr-2"></i> 50% Advance Payment</li>
+                        <li><i class="fa-solid fa-check text-green-400 mr-2"></i> High Priority Support</li>
+                        <li><i class="fa-solid fa-check text-green-400 mr-2"></i> Remaining 50% on submission</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Application Form -->
+        <section id="apply" class="mb-10">
+            <div class="glass-card p-6 md:p-10">
+                <div class="text-center mb-8">
+                    <h3 class="text-3xl font-bold glow-text mb-2">Application & Parcel Order Form</h3>
+                    <p class="text-gray-400">Fill in your details accurately to receive your parcel and advance payment.</p>
+                </div>
+
+                <form id="orderForm" onsubmit="sendToWhatsApp(event)" class="space-y-6">
+                    
+                    <!-- Personal Info Row -->
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="space-y-2">
+                            <label class="text-sm font-semibold text-gray-300"><i class="fa-regular fa-user mr-2 text-purple-400"></i>Full Name</label>
+                            <input type="text" id="name" required class="glass-input w-full p-3 rounded-lg" placeholder="e.g. Rahul Sharma">
+                        </div>
+                        <div class="space-y-2">
+                            <label class="text-sm font-semibold text-gray-300"><i class="fa-solid fa-phone mr-2 text-purple-400"></i>Phone Number</label>
+                            <input type="tel" id="phone" required class="glass-input w-full p-3 rounded-lg" placeholder="+91 xxxxx xxxxx" pattern="[0-9]{10,12}">
+                        </div>
+                    </div>
+
+                    <!-- Address Info -->
+                    <div class="space-y-2">
+                        <label class="text-sm font-semibold text-gray-300"><i class="fa-solid fa-map-location-dot mr-2 text-purple-400"></i>Full Address</label>
+                        <textarea id="address" required rows="3" class="glass-input w-full p-3 rounded-lg" placeholder="House No, Street, Landmark, City..."></textarea>
+                    </div>
+
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="space-y-2">
+                            <label class="text-sm font-semibold text-gray-300"><i class="fa-solid fa-thumbtack mr-2 text-purple-400"></i>Pincode</label>
+                            <input type="text" id="pincode" required class="glass-input w-full p-3 rounded-lg" placeholder="e.g. 313001">
+                        </div>
+                        <div class="space-y-2">
+                            <label class="text-sm font-semibold text-gray-300"><i class="fa-solid fa-language mr-2 text-purple-400"></i>Writing Language</label>
+                            <select id="language" required class="glass-input w-full p-3 rounded-lg appearance-none">
+                                <option value="" disabled selected>Select Language...</option>
+                                <option value="Hindi">Hindi (हिंदी)</option>
+                                <option value="English">English</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Options -->
+                    <div class="space-y-2">
+                        <label class="text-sm font-semibold text-gray-300"><i class="fa-solid fa-cubes mr-2 text-purple-400"></i>Select Package</label>
+                        <select id="package" required class="glass-input w-full p-3 rounded-lg appearance-none">
+                            <option value="" disabled selected>Choose your workload...</option>
+                            <option value="100 Pages - ₹18,500">100 Pages -> ₹18,500 Salary (Half Advance)</option>
+                            <option value="200 Pages - ₹40,000">200 Pages -> ₹40,000 Salary (Half Advance)</option>
+                        </select>
+                    </div>
+
+                    <div class="space-y-2 relative">
+                        <div class="flex justify-between items-center mb-1">
+                            <label class="text-sm font-semibold text-gray-300"><i class="fa-solid fa-truck-fast mr-2 text-purple-400"></i>Delivery Option</label>
+                            <button type="button" onclick="playDeliveryHelp()" class="text-xs bg-purple-600 hover:bg-purple-500 text-white py-1 px-3 rounded-full flex items-center gap-1 transition-all shadow-[0_0_10px_rgba(168,85,247,0.4)]">
+                                <i class="fa-solid fa-volume-high"></i> Listen Help
+                            </button>
+                        </div>
+                        <select id="delivery" required class="glass-input w-full p-3 rounded-lg appearance-none">
+                            <option value="" disabled selected>Select how you want to receive the parcel...</option>
+                            <option value="पार्सल अगर आप यहाँ आकर लोगे तो 0₹ चार्ज है, बुक्स फ्री हैं।">पार्सल अगर आप यहाँ आकर लोगे तो 0₹ चार्ज है, बुक्स फ्री हैं।</option>
+                            <option value="अगर बुक्स हम यहाँ से भेजेंगे तो 200₹ डिलीवरी चार्ज लगेगा।">अगर बुक्स हम यहाँ से भेजेंगे तो 200₹ डिलीवरी चार्ज लगेगा।</option>
+                        </select>
+                    </div>
+
+                    <!-- Submit -->
+                    <div class="pt-4">
+                        <button type="submit" class="w-full glow-button bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-400 hover:to-emerald-500 text-white font-bold text-lg py-4 px-8 rounded-xl flex items-center justify-center gap-3">
+                            <span>Order Parcel & Apply Now</span>
+                            <i class="fa-brands fa-whatsapp text-2xl"></i>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+        <footer class="text-center text-sm text-gray-500 pb-8">
+            <p>&copy; 2026 New United Printers, Shobhagpura, Udaipur, Rajasthan.</p>
+            <p>100% Genuine Work From Home Platform.</p>
+        </footer>
+
+    </div>
+
+    <!-- Logic Script -->
+    <script>
+        // --- 1. Background Particle System (High VFX) ---
+        const canvas = document.getElementById('particle-canvas');
+        const ctx = canvas.getContext('2d');
+        let particlesArray = [];
+
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        window.addEventListener('resize', function() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 2.5 + 0.5;
+                this.speedX = Math.random() * 1 - 0.5;
+                this.speedY = Math.random() * 1 - 0.5;
+                this.color = `rgba(${Math.floor(Math.random() * 100 + 155)}, ${Math.floor(Math.random() * 50 + 100)}, 255, ${Math.random() * 0.5 + 0.1})`;
+            }
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                
+                if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
+                if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
+            }
+            draw() {
+                ctx.fillStyle = this.color;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        function initParticles() {
+            particlesArray = [];
+            let numParticles = (canvas.width * canvas.height) / 8000; // responsive amount
+            for (let i = 0; i < numParticles; i++) {
+                particlesArray.push(new Particle());
+            }
+        }
+
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            for (let i = 0; i < particlesArray.length; i++) {
+                particlesArray[i].update();
+                particlesArray[i].draw();
+            }
+            requestAnimationFrame(animateParticles);
+        }
+
+        initParticles();
+        animateParticles();
+
+        // --- 2. Voice Assistant Feature (Web Speech API) ---
+        let synth = window.speechSynthesis;
+        let isSpeaking = false;
+        let availableVoices = [];
+
+        // Pre-load voices for selection
+        function loadVoices() {
+            availableVoices = synth.getVoices();
+        }
+        if (speechSynthesis.onvoiceschanged !== undefined) {
+            speechSynthesis.onvoiceschanged = loadVoices;
+        }
+        // Fallback for browsers that load voices immediately
+        loadVoices();
+
+        function setFemaleHindiVoice(utterance) {
+            // Attempt to find a Hindi female voice
+            let hiVoices = availableVoices.filter(v => v.lang.includes('hi'));
+            let selectedVoice = hiVoices.find(v => v.name.toLowerCase().includes('female') || v.name.toLowerCase().includes('zira')) || hiVoices[0];
+            
+            if (selectedVoice) {
+                utterance.voice = selectedVoice;
+            }
+            utterance.lang = 'hi-IN';
+            utterance.rate = 0.82; // Slower, more relaxed and comfortable speed
+            utterance.pitch = 1.15; // Higher pitch for a friendly, smiling female tone
+        }
+        
+        // Updated Main Voice Text with greeting and natural pauses
+        const voiceText = "Hi! New United Printers workshop mein aapka swagat hai. Ab ham aapko kaam ka tareeka aur payment process batayenge. Sabse pehle toh bata doon, ki zero rupee investment hai! Koi paisa nahi lagega books ka, aur koi anya charges nahi hai. Ab aapko Step-by-Step samjhate hai. Step 1: Aapka registration confirm hone ke baad, jo ki bilkul free hai, company ki taraf se free books di jayengi, jismein aapko likhna hoga. Step 2: Book lene ke baad, jab kaam start karoge, tab aapko aadhi salary, theek usi waqt, aapke bank khate ya UPI mein bhej di jayegi. Step 3: Likhne ka kaam. Parcel milne ke baad, aapko aaram se ghar baithe, saaf aur achhi handwriting mein, ek notebook mein dekh kar, dusri notebook mein utaarna hai, aur apna kaam poora karna hai. Step 4: Bachi hui poori salary. Jab aapka kaam poora ho jayega, aur aap likhi hui notebooks company ko wapas saupenge, tab usi samay aapki baaki bachi hui aadhi salary ka payment, turant kar diya jayega. Ab aap neeche process bataya hai, waha apni details daal dijiye.";
+
+        function toggleSpeech() {
+            const btnIcon = document.getElementById('voiceIcon');
+            const btnText = document.getElementById('voiceText');
+            const wave = document.getElementById('voiceWave');
+
+            if (synth.speaking) {
+                synth.cancel(); // Stop playing
+                isSpeaking = false;
+                updateUIForVoice(false);
+                return;
+            }
+
+            if (voiceText !== '') {
+                let utterThis = new SpeechSynthesisUtterance(voiceText);
+                setFemaleHindiVoice(utterThis);
+                
+                utterThis.onend = function (event) {
+                    isSpeaking = false;
+                    updateUIForVoice(false);
+                };
+
+                utterThis.onerror = function (event) {
+                    console.error('SpeechSynthesisUtterance.onerror');
+                    isSpeaking = false;
+                    updateUIForVoice(false);
+                };
+
+                synth.speak(utterThis);
+                isSpeaking = true;
+                updateUIForVoice(true);
+            }
+        }
+        
+        // Delivery Help Voice Feature
+        function playDeliveryHelp() {
+            // Stop any ongoing speech first
+            if (synth.speaking) {
+                synth.cancel();
+                isSpeaking = false;
+                updateUIForVoice(false);
+            }
+            
+            const helpText = "अगर आप हमारी लोकेशन पर आके बुक्स ले जाते हैं तो आपको 0 रुपये फीस देनी होगी, और अगर आप यहां से आर्डर करोगे तो 200 रुपये डिलीवरी चार्ज तो लगेगा ही, और वो पेमेंट कैश ऑन डिलीवरी नहीं होगा। थैंक यू।";
+            let utterThis = new SpeechSynthesisUtterance(helpText);
+            setFemaleHindiVoice(utterThis);
+            
+            synth.speak(utterThis);
+        }
+
+        function updateUIForVoice(playing) {
+            const btnIcon = document.getElementById('voiceIcon');
+            const btnText = document.getElementById('voiceText');
+            const wave = document.getElementById('voiceWave');
+            
+            if (playing) {
+                btnIcon.className = 'fa-solid fa-stop text-xl text-pink-400';
+                btnText.innerText = 'Stop Audio';
+                wave.classList.remove('hidden-wave');
+            } else {
+                btnIcon.className = 'fa-solid fa-play text-xl';
+                btnText.innerText = 'Play Audio Guide';
+                wave.classList.add('hidden-wave');
+            }
+        }
+
+        // Handle page unload to stop audio
+        window.onbeforeunload = function () {
+            if (synth) synth.cancel();
+        };
+
+        // --- 3. Form Submission & WhatsApp Integration ---
+        function sendToWhatsApp(e) {
+            e.preventDefault(); // Prevent standard form submission
+
+            // Retrieve form values
+            const name = document.getElementById('name').value.trim();
+            const phone = document.getElementById('phone').value.trim();
+            const address = document.getElementById('address').value.trim();
+            const pincode = document.getElementById('pincode').value.trim();
+            const language = document.getElementById('language').value;
+            const packageType = document.getElementById('package').value;
+            const delivery = document.getElementById('delivery').value;
+
+            // Target WhatsApp Number
+            const whatsappNumber = "919526827511";
+
+            // Construct the updated professional message
+            const message = `Hello New United Printers, I have filled out the application. Here are my details:\n\n*Name:* ${name}\n*Number:* ${phone}\n*Address:* ${address}, Pincode: ${pincode}\n*Language:* ${language}\n*Package:* ${packageType}\n*Delivery Mode:* ${delivery}\n\nमैंने अपना आर्डर कर दिया है, कृपया मेरी डिटेल्स कन्फर्म करें। अगर मेरा डिलीवरी चार्ज लागू होता है तो कृपया QR कोड भेजें ताकि मैं आर्डर पूरा कर सकूँ।`;
+
+            // URL Encode the message
+            const encodedMessage = encodeURIComponent(message);
+
+            // Redirect to WhatsApp API instantly without any delay
+            const waLink = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
+            window.location.href = waLink;
+        }
+
+    </script>
+</body>
+</html>
